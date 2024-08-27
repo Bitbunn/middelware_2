@@ -1,29 +1,24 @@
 import socket
-import time
 
 class DataSender:
-    def __init__(self, receiver):
-        self.receiver = receiver
-        self.running = False
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.target_address = (self.receiver.config['target']['host'], self.receiver.config['target']['port'])
+    def __init__(self, config):
+        self.config = config
+        self.seat_ip = self.config["seat"]["ip"]
+        self.seat_port = self.config["seat"]["port"]
+        self.lighting_ip = self.config["lighting"]["ip"]
+        self.lighting_port = self.config["lighting"]["port"]
 
-    def start_sending(self):
-        self.running = True
-        while self.running:
-            data = self.receiver.get_data()
-            if data:
-                self.send_data(data)
-            time.sleep(1 / self.receiver.config.get("send_frequency", 10))
+    def send(self, telemetry_data):
+        if telemetry_data is None:
+            print("No telemetry data to send.")
+            return
+        self.send_to_seat(telemetry_data)
+        self.send_to_lighting(telemetry_data)
 
-    def send_data(self, data):
-        # Convert the data to bytes and send via UDP
-        data_bytes = self.prepare_data_for_sending(data)
-        self.sock.sendto(data_bytes, self.target_address)
+    def send_to_seat(self, telemetry_data):
+        print(f"Sending to seat: {telemetry_data}")
+        # Add actual sending logic here
 
-    def prepare_data_for_sending(self, data):
-        # Example: Convert data to string, then encode it
-        return str(data).encode('utf-8')
-
-    def stop_sending(self):
-        self.running = False
+    def send_to_lighting(self, telemetry_data):
+        print(f"Sending to lighting: {telemetry_data}")
+        # Add actual sending logic here
