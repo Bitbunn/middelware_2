@@ -1,31 +1,18 @@
 import socket
-import time
+import struct
 from game_data_receiver import GameDataReceiver
 
 class UDPGameDataReceiver(GameDataReceiver):
-    def __init__(self, config, feature):
-        super().__init__(config, feature)
+    def connect(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sock.bind((config['udp']['host'], config['udp']['port']))
+        self.sock.bind((self.selected_game["ip"], self.selected_game["port"]))
+        print(f"Connected to UDP {self.selected_game['ip']}:{self.selected_game['port']}")
 
-    def start_receiving(self):
-        self.running = True
-        while self.running:
-            data, _ = self.sock.recvfrom(1024)  # Buffer size
-            parsed_data = self.map_telemetry_data(data)
-            self.update_data(parsed_data)
-            time.sleep(1 / self.config.get("receive_frequency", 10))
+    def receive(self):
+        data, _ = self.sock.recvfrom(self.selected_game["buffer_size"])
+        unpacked_data = struct.unpack(self.telemetry_format, data)
+        self.telemetry_data = self.map_telemetry_data(unpacked_data)
+        print(f"Received UDP data: {self.telemetry_data}")
 
     def map_telemetry_data(self, raw_data):
-        # Implement your mapping logic here
-        telemetry_format = self.config['telemetry_format']
-        unpacked_data = struct.unpack(telemetry_format, raw_data)
-
-        mapped_data = {}
-        for key, indices in self.config['data_mapping'].items():
-            if isinstance(indices, list):
-                mapped_data[key] = [unpacked_data[i] for i in indices]
-            else:
-                mapped_data[key] = unpacked_data[indices]
-
-        return mapped_data
+        return super().map_telemetry_data(raw_data)
