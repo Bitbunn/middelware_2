@@ -17,8 +17,8 @@ class DataSender:
 
     def send_to_seat(self, telemetry_data):
         print(f"Sending to seat: {telemetry_data}")
-        # Add actual sending logic here
+        # Logique d'envoi ici
 
     def send_to_lighting(self, telemetry_data):
         print(f"Sending to lighting: {telemetry_data}")
-        # Add actual sending logic here
+        # Logique d'envoi ici
