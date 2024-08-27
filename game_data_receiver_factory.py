@@ -3,10 +3,11 @@ from shared_memory_game_data_receiver import SharedMemoryGameDataReceiver
 
 class GameDataReceiverFactory:
     @staticmethod
-    def create_receiver(config, feature):
-        if config['protocol'] == 'udp':
-            return UDPGameDataReceiver(config, feature)
-        elif config['protocol'] == 'shared_memory':
-            return SharedMemoryGameDataReceiver(config, feature)
+    def create_receiver(config):
+        protocol = config['selected_game']['protocol']
+        if protocol == 'udp':
+            return UDPGameDataReceiver(config)
+        elif protocol == 'shared_memory':
+            return SharedMemoryGameDataReceiver(config)
         else:
-            raise ValueError("Unsupported protocol")
+            raise ValueError(f"Unsupported protocol: {protocol}")
