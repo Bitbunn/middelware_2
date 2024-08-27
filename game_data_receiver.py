@@ -1,6 +1,6 @@
 class GameDataReceiver:
     def __init__(self, config):
-        self.config = config
+        self.config = config 
         self.receive_frequency = self.config['general'].get("receive_frequency", 10)
         self.selected_game = self.config['selected_game']
         self.telemetry_format = self.selected_game["telemetry_format"]
