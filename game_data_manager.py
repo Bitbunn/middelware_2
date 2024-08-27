@@ -2,7 +2,7 @@ import threading
 from game_data_receiver_factory import GameDataReceiverFactory
 from data_sender import DataSender
 
-class GameDataManager:
+class GameDataManager: 
     def __init__(self, config):
         self.config = config
         self.receiver = GameDataReceiverFactory.create_receiver(self.config)
