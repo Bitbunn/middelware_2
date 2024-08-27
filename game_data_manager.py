@@ -1,30 +1,37 @@
+import threading
 from game_data_receiver_factory import GameDataReceiverFactory
 from data_sender import DataSender
-import threading
 
 class GameDataManager:
     def __init__(self, config):
         self.config = config
-        self.receivers = []
-        self.senders = []
+        self.receiver = GameDataReceiverFactory.create_receiver(self.config)
+        self.sender = DataSender(self.config)
+        self.running = False
 
     def start(self):
-        # Initialize GameDataReceiver and GameDataSender instances
-        for feature in self.config.get("features", []):
-            receiver = GameDataReceiverFactory.create_receiver(self.config, feature)
-            sender = DataSender(receiver)
-            self.receivers.append(receiver)
-            self.senders.append(sender)
-
-        # Start all receivers and senders
-        for receiver in self.receivers:
-            threading.Thread(target=receiver.start_receiving).start()
-
-        for sender in self.senders:
-            threading.Thread(target=sender.start_sending).start()
+        print("Starting GameDataManager...")
+        self.receiver.connect()
+        self.running = True
+        self.receiver_thread = threading.Thread(target=self.receive_data)
+        self.sender_thread = threading.Thread(target=self.send_data)
+        self.receiver_thread.start()
+        self.sender_thread.start()
 
     def stop(self):
-        for receiver in self.receivers:
-            receiver.stop_receiving()
-        for sender in self.senders:
-            sender.stop_sending()
+        print("Stopping GameDataManager...")
+        self.running = False
+        self.receiver_thread.join()
+        self.sender_thread.join()
+
+    def receive_data(self):
+        while self.running:
+            print("Receiving data...")
+            self.receiver.receive()
+            print(f"Received data: {self.receiver.telemetry_data}")
+
+    def send_data(self):
+        while self.running:
+            print("Sending data...")
+            self.sender.send(self.receiver.telemetry_data)
+            print(f"Data sent: {self.receiver.telemetry_data}")
