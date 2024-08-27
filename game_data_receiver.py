@@ -1,21 +1,21 @@
-from abc import ABC, abstractmethod
-
-class GameDataReceiver(ABC):
-    def __init__(self, config, feature):
+class GameDataReceiver:
+    def __init__(self, config):
         self.config = config
-        self.feature = feature
+        self.receive_frequency = self.config['general'].get("receive_frequency", 10)
+        self.selected_game = self.config['selected_game']
+        self.telemetry_format = self.selected_game["telemetry_format"]
+        self.data_mapping = self.selected_game["data_mapping"]
         self.running = False
-        self.data = {}
+        self.telemetry_data = None
 
-    @abstractmethod
-    def start_receiving(self):
-        pass
+    def connect(self):
+        print("Connecting to game data source...")
+        # This method will be overridden in subclasses
 
-    def stop_receiving(self):
-        self.running = False
+    def receive(self):
+        print("Receiving game data...")
+        # This method will be overridden in subclasses
 
-    def update_data(self, data):
-        self.data.update(data)
-
-    def get_data(self):
-        return self.data
+    def map_telemetry_data(self, raw_data):
+        print(f"Mapping telemetry data: {raw_data}")
+        # Implement your mapping logic here
