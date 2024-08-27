@@ -16,3 +16,4 @@ class UDPGameDataReceiver(GameDataReceiver):
 
     def map_telemetry_data(self, raw_data):
         return super().map_telemetry_data(raw_data)
+ 
