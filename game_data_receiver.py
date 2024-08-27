@@ -10,11 +10,11 @@ class GameDataReceiver:
 
     def connect(self):
         print("Connecting to game data source...")
-        # This method will be overridden in subclasses
+        # Méthode à surcharger dans les sous-classes
 
     def receive(self):
         print("Receiving game data...")
-        # This method will be overridden in subclasses
+        # Méthode à surcharger dans les sous-classes
 
     def map_telemetry_data(self, raw_data):
         print(f"Mapping telemetry data: {raw_data}")
