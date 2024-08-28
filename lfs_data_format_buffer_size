@@ -1,3 +1,5 @@
+telemetry_format = "<4sIIf3f3f3f3i5f4B2f2f9f4B9f4B9f4B9f4B"
+telemetry_format = "<4sIIf3f3f3f3i5f4B2f2f12f12f12f12f"
 telemetry_format = "<4sIIf3f3f3f3i5f4B2f2f12f12f12f12f"
 telemetry_format = "<4sIIf3f3f3f3i5f4B2f2f12f12f12f12f"
 
