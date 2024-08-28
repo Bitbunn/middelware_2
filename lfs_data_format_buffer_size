@@ -1,0 +1,2 @@
+telemetry_format = "<4s3I3f3f3f3i5f4B2f2f12f12f12f12f"
+buffer size = 280 bytes
