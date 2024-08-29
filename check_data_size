@@ -1,0 +1,3 @@
+print(f"Received data length: {len(data)}")
+if len(data) != 280:
+    print("Error: Incorrect data length")
