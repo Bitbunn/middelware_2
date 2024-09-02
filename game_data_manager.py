@@ -37,7 +37,7 @@ class GameDataManager:
         retry_count = 0
         
         # Use frequency from configuration
-        frequency = self.selected_game['udp']['frequency']  # Get frequency from config
+        frequency = self.selected_game['frequency']  # Get frequency from config
         
         while self.running:
             try:
