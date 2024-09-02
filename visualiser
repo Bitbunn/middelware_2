@@ -1,0 +1,66 @@
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
+from udp_game_data_receiver import UDPReceiver  # Importing the UDPReceiver class
+
+# Initialize the UDP receiver
+receiver = UDPReceiver(ip='127.0.0.1', port=63393, buffer_size=1024)
+
+# Start receiving data in a separate thread
+receiver.start_receiving()
+
+# Initialize the figure and axes for live plot
+fig, axs = plt.subplots(3, 2, figsize=(12, 8))
+
+# Function to initialize the plot
+def init():
+    for ax in axs.flat:
+        ax.clear()
+    return axs.flat
+
+# Function to update the plot with new telemetry data
+def update(frame):
+    data = receiver.latest_data  # Fetch the latest data from the UDP receiver
+
+    if data:
+        # Update vehicle position
+        axs[0, 0].clear()
+        axs[0, 0].bar(['x', 'y', 'z'], data['vehicle_pos'])
+        axs[0, 0].set_title('Vehicle Position')
+
+        # Update vehicle speed
+        axs[0, 1].clear()
+        axs[0, 1].bar(['vx', 'vy', 'vz'], data['vehicle_speed'])
+        axs[0, 1].set_title('Vehicle Speed')
+
+        # Update vehicle acceleration
+        axs[1, 0].clear()
+        axs[1, 0].bar(['ax', 'ay', 'az'], data['vehicle_accel'])
+        axs[1, 0].set_title('Vehicle Acceleration')
+
+        # Update angular speed
+        axs[1, 1].clear()
+        axs[1, 1].bar(['p', 'q', 'r'], data['vehicle_ang_speed'])
+        axs[1, 1].set_title('Angular Speed')
+
+        # Update engine RPM
+        axs[2, 0].clear()
+        axs[2, 0].bar(['RPM'], [data['engine_rpm']])
+        axs[2, 0].set_title('Engine RPM')
+
+        # Update suspension deflection
+        axs[2, 1].clear()
+        axs[2, 1].bar(['FL', 'FR', 'RL', 'RR'], data['susp_deflect'])
+        axs[2, 1].set_title('Suspension Deflection')
+
+    return axs.flat
+
+# Set up the animation
+ani = animation.FuncAnimation(fig, update, init_func=init, interval=500)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
+
+# Stop receiving data when the plot is closed
+receiver.stop_receiving()
