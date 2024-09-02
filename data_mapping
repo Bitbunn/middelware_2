@@ -16,3 +16,15 @@ data_mapping:
   vehicle_ang_speed: [15, 16, 17]  # Indices for angular velocity (x, y, z)
   engine_rpm: 18  # An example index for engine RPM; adjust as needed
   susp_deflect: [19, 29, 39, 49]  # Suspension deflection, adjust these indices to match actual data positions
+
+///////////////////////////
+data_mapping = {
+    'vehicle_pos': [3, 4, 5],         # Indices for vehicle position (x, y, z)
+    'vehicle_speed': [6, 7, 8],       # Indices for vehicle speed (vx, vy, vz)
+    'vehicle_accel': [9, 10, 11],     # Indices for vehicle acceleration (ax, ay, az)
+    'vehicle_ang_euler': [12, 13, 14], # Indices for angular position (pitch, yaw, roll)
+    'vehicle_ang_speed': [15, 16, 17], # Indices for angular speed (p, q, r)
+    'engine_rpm': 28,                  # Index for engine RPM
+    'susp_deflect': [33, 34, 35, 36], # Indices for suspension deflections
+}
+
