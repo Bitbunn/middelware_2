@@ -1,0 +1,7 @@
+"vehicle_pos": [22, 23, 24],                # 3 ints from `Vec Pos`
+    "vehicle_speed": [19, 20, 21],              # 3 floats from `Vector Vel`
+    "vehicle_accel": [16, 17, 18],              # 3 floats from `Vector Accel`
+    "vehicle_ang_euler": [13, 14, 15],          # 3 floats: `Heading`, `Pitch`, `Roll`
+    "vehicle_ang_speed": [10, 11, 12],          # 3 floats from `Vector AngVel`
+    "engine_rpm": 31,                           # 1 float: `EngineAngVel`
+    "susp_deflect": [35, 45, 55, 65], 
