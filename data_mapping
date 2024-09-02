@@ -5,3 +5,14 @@
     "vehicle_ang_speed": [10, 11, 12],          # 3 floats from `Vector AngVel`
     "engine_rpm": 31,                           # 1 float: `EngineAngVel`
     "susp_deflect": [35, 45, 55, 65], 
+
+
+////
+data_mapping:
+  vehicle_pos: [3, 4, 5]  # Assuming '3f' represents the vehicle's position in 3D space (x, y, z)
+  vehicle_speed: [6, 7, 8]  # Assuming '3f' represents the vehicle's speed vector in 3D space (x, y, z)
+  vehicle_accel: [9, 10, 11]  # Assuming '3f' represents the vehicle's acceleration vector
+  vehicle_ang_euler: [12, 13, 14]  # Indices for angular Euler angles (x, y, z)
+  vehicle_ang_speed: [15, 16, 17]  # Indices for angular velocity (x, y, z)
+  engine_rpm: 18  # An example index for engine RPM; adjust as needed
+  susp_deflect: [19, 29, 39, 49]  # Suspension deflection, adjust these indices to match actual data positions
