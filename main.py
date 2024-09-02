@@ -12,8 +12,8 @@ def load_config(game_name):
     # Load the selected game configuration
     config['selected_game'] = config['games'][game_name]
     
-    # Read frequency for UDP reception
-    if 'frequency' not in config['selected_game']['udp']:
+    # Ensure 'frequency' is defined for the game
+    if 'frequency' not in config['selected_game']:
         raise ValueError(f"Frequency not defined for game '{game_name}' in the config.")
     
     return config
@@ -41,4 +41,3 @@ if __name__ == "__main__":
     finally:
         manager.stop()  # Stop the manager when the program ends
         print("GameDataManager stopped.")
- 
