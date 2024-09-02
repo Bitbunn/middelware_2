@@ -19,10 +19,11 @@ class GameDataManager:
         self.sender_thread.start()
 
     def stop(self):
-        print("Stopping GameDataManager...")
-        self.running = False
-        self.receiver_thread.join()
-        self.sender_thread.join()
+    print("Stopping GameDataManager...")
+    self.running = False  # This stops the loops in both receive_data() and send_data()
+    self.receiver_thread.join()  # Wait for the receiver thread to finish
+    self.sender_thread.join()    # Wait for the sender thread to finish
+
 
     def receive_data(self):
     while self.running:
