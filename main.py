@@ -41,3 +41,4 @@ if __name__ == "__main__":
     finally:
         manager.stop()  # Stop the manager when the program ends
         print("GameDataManager stopped.")
+ 
