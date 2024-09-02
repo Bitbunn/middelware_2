@@ -25,10 +25,15 @@ class GameDataManager:
         self.sender_thread.join()
 
     def receive_data(self):
-        while self.running:
+    while self.running:
+        try:
             print("Receiving data...")
-            self.receiver.receive()
-            print(f"Received data: {self.receiver.telemetry_data}")
+            self.receiver.receive()  # Receive data
+        except Exception as e:
+            print(f"Error receiving data: {e}")
+            # Optionally handle the error, log it, or attempt recovery
+            continue  # Continue to the next loop iteration
+
 
     def send_data(self):
         while self.running:
